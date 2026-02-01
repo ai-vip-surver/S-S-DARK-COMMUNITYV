@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>S'S DARK COMMUNITY</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@600&display=swap');
+
+body, html {
+    margin:0; padding:0;
+    width:100%; height:100%;
+    overflow:hidden; background:#000;
+    font-family:'Rajdhani', sans-serif;
+}
+
+.game-frame {
+    position:absolute;
+    inset:0; z-index:1;
+}
+iframe { width:100%; height:100%; border:none; }
+
+@keyframes rgb-border {
+    0% { border-color:#ff0000; box-shadow:0 0 15px #ff0000; }
+    33% { border-color:#0000ff; box-shadow:0 0 15px #0000ff; }
+    66% { border-color:#00ff00; box-shadow:0 0 15px #00ff00; }
+    100% { border-color:#ff0000; box-shadow:0 0 15px #ff0000; }
+}
+
+#dragBox {
+    position:fixed;
+    top:150px; left:20px;
+    width:100px;
+    z-index:99999;
+    background:rgba(0,0,0,0.95);
+    border:3px solid #ff0000;
+    border-radius:12px;
+    padding:10px;
+    text-align:center;
+    animation:rgb-border 3s infinite linear;
+    touch-action:none;
+}
+
+.title {
+    font-family:'Orbitron', sans-serif;
+    font-size:8px;
+    color:#fff;
+    margin-bottom:8px;
+}
+
+.input-style {
+    width:90%;
+    background:#111;
+    border:1px solid #444;
+    border-radius:4px;
+    color:#00ff88;
+    padding:5px 0;
+    font-size:10px;
+    text-align:center;
+    margin-bottom:8px;
+    outline:none;
+}
+
+.btn-style {
+    width:95%;
+    background:#fff;
+    color:#000;
+    border:none;
+    border-radius:4px;
+    padding:6px 0;
+    font-size:9px;
+    font-weight:bold;
+    cursor:pointer;
+    display:block;
+    margin:auto;
+}
+.btn-style:active { transform:scale(0.95); background:#00ff88; }
+
+.info-text { font-size:8px; color:#bbb; margin-bottom:4px; }
+
+.result-box {
+    background:rgba(255,255,255,0.1);
+    border-radius:6px;
+    padding:8px 0;
+    margin:8px 0;
+}
+
+#signalText {
+    font-family:'Orbitron';
+    font-size:11px;
+    font-weight:bold;
+}
+
+.timer-text {
+    font-size:10px;
+    color:#00ff88;
+    font-weight:bold;
+}
+
+.control-row { display:flex; gap:4px; margin-top:8px; }
+
+.mini-btn {
+    flex:1;
+    font-size:7px;
+    padding:4px 0;
+    background:#333;
+    color:#fff;
+    border:none;
+    border-radius:3px;
+}
+
+#miniTrigger {
+    position:fixed;
+    top:40%; left:0;
+    width:30px; height:30px;
+    background:#000;
+    border:2px solid #00ff00;
+    border-radius:0 15px 15px 0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100000;
+    color:#00ff00;
+}
+</style>
+</head>
+
+<body>
+
+<div class="game-frame">
+<iframe src="https://tkclub2.com/#/register?invitationCode=16621180332"></iframe>
+</div>
+
+<div id="dragBox">
+<div class="title">S'S DARK COMMUNITY</div>
+
+<div id="loginUI">
+<input type="password" id="passInput" class="input-style" placeholder="PASSWORD">
+<button class="btn-style" onclick="attemptLogin()">LOGIN</button>
+</div>
+
+<div id="dashUI" style="display:none;">
+<div class="info-text" id="clock">00:00:00</div>
+
+<div class="result-box">
+<span id="signalText">WAITING</span>
+<div class="timer-text"><span id="timerVal">30</span> s</div>
+</div>
+
+<div class="control-row">
+<button class="mini-btn" onclick="toggleView(false)">HIDE</button>
+<button class="mini-btn" style="color:red;" onclick="location.reload()">EXIT</button>
+</div>
+</div>
+</div>
+
+<div id="miniTrigger" onclick="toggleView(true)">▶</div>
+
+<script>
+const SECRET_KEY = "apexss";
+
+function attemptLogin(){
+    const input=document.getElementById("passInput").value.trim();
+    if(input===SECRET_KEY){
+        document.getElementById("loginUI").style.display="none";
+        document.getElementById("dashUI").style.display="block";
+        runEngine();
+    }else{
+        alert("WRONG PASSWORD!");
+    }
+}
+
+const box=document.getElementById("dragBox");
+let isMoving=false, offsetX, offsetY;
+
+box.addEventListener("touchstart",(e)=>{
+    if(e.target.tagName==="BUTTON"||e.target.tagName==="INPUT") return;
+    isMoving=true;
+    offsetX=e.touches[0].clientX-box.offsetLeft;
+    offsetY=e.touches[0].clientY-box.offsetTop;
+});
+
+document.addEventListener("touchmove",(e)=>{
+    if(!isMoving) return;
+    box.style.left=(e.touches[0].clientX-offsetX)+"px";
+    box.style.top=(e.touches[0].clientY-offsetY)+"px";
+    e.preventDefault();
+},{passive:false});
+
+document.addEventListener("touchend",()=>isMoving=false);
+
+function toggleView(show){
+    box.style.display=show?"block":"none";
+    document.getElementById("miniTrigger").style.display=show?"none":"flex";
+}
+
+function runEngine(){
+    const signals=[
+        {t:"BIG 7,9",c:"#00d2ff"},
+        {t:"SMALL 0,2",c:"#ff007f"},
+        {t:"SMALL 1,3",c:"#ff007f"},
+        {t:"BIG 6,8",c:"#00d2ff"},
+        {t:"BIG 5",c:"#00d2ff"},
+        {t:"SMALL 4",c:"#ff007f"}
+    ];
+
+    function update(){
+        const now=new Date();
+        const ts=now.getTime();
+        const cycle=Math.floor(ts/30000);
+        const data=signals[cycle%signals.length];
+
+        const sigEl=document.getElementById("signalText");
+        sigEl.innerText=data.t;
+        sigEl.style.color=data.c;
+
+        const timeLeft=30-(Math.floor(ts/1000)%30);
+        document.getElementById("timerVal").innerText=timeLeft;
+        document.getElementById("clock").innerText=now.toLocaleTimeString();
+    }
+
+    setInterval(update,1000);
+    update();
+}
+</script>
+
+</body>
+</html>
